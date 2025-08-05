@@ -18,12 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     // Récupération des données
-    $title = trim($_POST['title'] ?? '');
-    $description = trim($_POST['description'] ?? '');
-    $filiere = $_POST['filiere'] ?? '';
-    $niveau = $_POST['niveau'] ?? '';
-    $matiere = trim($_POST['matiere'] ?? '');
-    $type_document = $_POST['type_document'] ?? '';
+    $title = trim(isset($_POST['title']) ? $_POST['title'] : '');
+    $description = trim(isset($_POST['description']) ? $_POST['description'] : '');
+    $filiere = isset($_POST['filiere']) ? $_POST['filiere'] : '';
+    $niveau = isset($_POST['niveau']) ? $_POST['niveau'] : '';
+    $matiere = trim(isset($_POST['matiere']) ? $_POST['matiere'] : '');
+    $type_document = isset($_POST['type_document']) ? $_POST['type_document'] : '';
     
     // Validation des champs
     if (empty($title)) {
@@ -149,12 +149,12 @@ include 'includes/header.php';
                             id="title" 
                             name="title" 
                             class="form-input <?php echo isset($errors['title']) ? 'error' : ''; ?>"
-                            value="<?php echo htmlspecialchars($title ?? ''); ?>"
+                            value="<?php echo htmlspecialchars(isset($title) ? $title : ''); ?>"
                             required
                             placeholder="Ex: Examen Final Mathématiques L2 - Janvier 2024"
                         >
                         <div class="form-error <?php echo isset($errors['title']) ? 'show' : ''; ?>">
-                            <?php echo $errors['title'] ?? ''; ?>
+                            <?php echo isset($errors['title']) ? $errors['title'] : ''; ?>
                         </div>
                     </div>
 
@@ -169,7 +169,7 @@ include 'includes/header.php';
                             class="form-input"
                             rows="4"
                             placeholder="Décrivez brièvement le contenu du document..."
-                        ><?php echo htmlspecialchars($description ?? ''); ?></textarea>
+                        ><?php echo htmlspecialchars(isset($description) ? $description : ''); ?></textarea>
                     </div>
 
                     <!-- Informations académiques -->
@@ -185,17 +185,17 @@ include 'includes/header.php';
                                 required
                             >
                                 <option value="">Choisissez une filière</option>
-                                <option value="informatique" <?php echo ($filiere ?? '') === 'informatique' ? 'selected' : ''; ?>>Informatique</option>
-                                <option value="gestion" <?php echo ($filiere ?? '') === 'gestion' ? 'selected' : ''; ?>>Gestion</option>
-                                <option value="economie" <?php echo ($filiere ?? '') === 'economie' ? 'selected' : ''; ?>>Économie</option>
-                                <option value="droit" <?php echo ($filiere ?? '') === 'droit' ? 'selected' : ''; ?>>Droit</option>
-                                <option value="medecine" <?php echo ($filiere ?? '') === 'medecine' ? 'selected' : ''; ?>>Médecine</option>
-                                <option value="ingenierie" <?php echo ($filiere ?? '') === 'ingenierie' ? 'selected' : ''; ?>>Ingénierie</option>
-                                <option value="lettres" <?php echo ($filiere ?? '') === 'lettres' ? 'selected' : ''; ?>>Lettres et Sciences Humaines</option>
-                                <option value="sciences" <?php echo ($filiere ?? '') === 'sciences' ? 'selected' : ''; ?>>Sciences</option>
+                                <option value="informatique" <?php echo (isset($filiere) ? $filiere : '') === 'informatique' ? 'selected' : ''; ?>>Informatique</option>
+                                <option value="gestion" <?php echo (isset($filiere) ? $filiere : '') === 'gestion' ? 'selected' : ''; ?>>Gestion</option>
+                                <option value="economie" <?php echo (isset($filiere) ? $filiere : '') === 'economie' ? 'selected' : ''; ?>>Économie</option>
+                                <option value="droit" <?php echo (isset($filiere) ? $filiere : '') === 'droit' ? 'selected' : ''; ?>>Droit</option>
+                                <option value="medecine" <?php echo (isset($filiere) ? $filiere : '') === 'medecine' ? 'selected' : ''; ?>>Médecine</option>
+                                <option value="ingenierie" <?php echo (isset($filiere) ? $filiere : '') === 'ingenierie' ? 'selected' : ''; ?>>Ingénierie</option>
+                                <option value="lettres" <?php echo (isset($filiere) ? $filiere : '') === 'lettres' ? 'selected' : ''; ?>>Lettres et Sciences Humaines</option>
+                                <option value="sciences" <?php echo (isset($filiere) ? $filiere : '') === 'sciences' ? 'selected' : ''; ?>>Sciences</option>
                             </select>
                             <div class="form-error <?php echo isset($errors['filiere']) ? 'show' : ''; ?>">
-                                <?php echo $errors['filiere'] ?? ''; ?>
+                                <?php echo isset($errors['filiere']) ? $errors['filiere'] : ''; ?>
                             </div>
                         </div>
 
@@ -210,15 +210,15 @@ include 'includes/header.php';
                                 required
                             >
                                 <option value="">Choisissez un niveau</option>
-                                <option value="L1" <?php echo ($niveau ?? '') === 'L1' ? 'selected' : ''; ?>>Licence 1ère année (L1)</option>
-                                <option value="L2" <?php echo ($niveau ?? '') === 'L2' ? 'selected' : ''; ?>>Licence 2ème année (L2)</option>
-                                <option value="L3" <?php echo ($niveau ?? '') === 'L3' ? 'selected' : ''; ?>>Licence 3ème année (L3)</option>
-                                <option value="M1" <?php echo ($niveau ?? '') === 'M1' ? 'selected' : ''; ?>>Master 1ère année (M1)</option>
-                                <option value="M2" <?php echo ($niveau ?? '') === 'M2' ? 'selected' : ''; ?>>Master 2ème année (M2)</option>
-                                <option value="Doctorat" <?php echo ($niveau ?? '') === 'Doctorat' ? 'selected' : ''; ?>>Doctorat</option>
+                                <option value="L1" <?php echo (isset($niveau) ? $niveau : '') === 'L1' ? 'selected' : ''; ?>>Licence 1ère année (L1)</option>
+                                <option value="L2" <?php echo (isset($niveau) ? $niveau : '') === 'L2' ? 'selected' : ''; ?>>Licence 2ème année (L2)</option>
+                                <option value="L3" <?php echo (isset($niveau) ? $niveau : '') === 'L3' ? 'selected' : ''; ?>>Licence 3ème année (L3)</option>
+                                <option value="M1" <?php echo (isset($niveau) ? $niveau : '') === 'M1' ? 'selected' : ''; ?>>Master 1ère année (M1)</option>
+                                <option value="M2" <?php echo (isset($niveau) ? $niveau : '') === 'M2' ? 'selected' : ''; ?>>Master 2ème année (M2)</option>
+                                <option value="Doctorat" <?php echo (isset($niveau) ? $niveau : '') === 'Doctorat' ? 'selected' : ''; ?>>Doctorat</option>
                             </select>
                             <div class="form-error <?php echo isset($errors['niveau']) ? 'show' : ''; ?>">
-                                <?php echo $errors['niveau'] ?? ''; ?>
+                                <?php echo isset($errors['niveau']) ? $errors['niveau'] : ''; ?>
                             </div>
                         </div>
                     </div>
@@ -233,7 +233,7 @@ include 'includes/header.php';
                                 id="matiere" 
                                 name="matiere" 
                                 class="form-input"
-                                value="<?php echo htmlspecialchars($matiere ?? ''); ?>"
+                                value="<?php echo htmlspecialchars(isset($matiere) ? $matiere : ''); ?>"
                                 placeholder="Ex: Mathématiques, Algorithmique..."
                             >
                         </div>
@@ -249,14 +249,14 @@ include 'includes/header.php';
                                 required
                             >
                                 <option value="">Choisissez un type</option>
-                                <option value="examen" <?php echo ($type_document ?? '') === 'examen' ? 'selected' : ''; ?>>Examen</option>
-                                <option value="cours" <?php echo ($type_document ?? '') === 'cours' ? 'selected' : ''; ?>>Cours</option>
-                                <option value="td" <?php echo ($type_document ?? '') === 'td' ? 'selected' : ''; ?>>TD (Travaux Dirigés)</option>
-                                <option value="tp" <?php echo ($type_document ?? '') === 'tp' ? 'selected' : ''; ?>>TP (Travaux Pratiques)</option>
-                                <option value="autre" <?php echo ($type_document ?? '') === 'autre' ? 'selected' : ''; ?>>Autre</option>
+                                <option value="examen" <?php echo (isset($type_document) ? $type_document : '') === 'examen' ? 'selected' : ''; ?>>Examen</option>
+                                <option value="cours" <?php echo (isset($type_document) ? $type_document : '') === 'cours' ? 'selected' : ''; ?>>Cours</option>
+                                <option value="td" <?php echo (isset($type_document) ? $type_document : '') === 'td' ? 'selected' : ''; ?>>TD (Travaux Dirigés)</option>
+                                <option value="tp" <?php echo (isset($type_document) ? $type_document : '') === 'tp' ? 'selected' : ''; ?>>TP (Travaux Pratiques)</option>
+                                <option value="autre" <?php echo (isset($type_document) ? $type_document : '') === 'autre' ? 'selected' : ''; ?>>Autre</option>
                             </select>
                             <div class="form-error <?php echo isset($errors['type_document']) ? 'show' : ''; ?>">
-                                <?php echo $errors['type_document'] ?? ''; ?>
+                                <?php echo isset($errors['type_document']) ? $errors['type_document'] : ''; ?>
                             </div>
                         </div>
                     </div>
@@ -296,7 +296,7 @@ include 'includes/header.php';
                             </div>
                         </div>
                         <div class="form-error <?php echo isset($errors['file']) ? 'show' : ''; ?>">
-                            <?php echo $errors['file'] ?? ''; ?>
+                            <?php echo isset($errors['file']) ? $errors['file'] : ''; ?>
                         </div>
                     </div>
 

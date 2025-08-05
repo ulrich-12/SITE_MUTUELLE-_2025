@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Récupération des données JSON
 $input = json_decode(file_get_contents('php://input'), true);
-$message_id = intval($input['message_id'] ?? 0);
+$message_id = intval(isset($input['message_id']) ? $input['message_id'] : 0);
 
 if ($message_id <= 0) {
     echo json_encode(['success' => false, 'message' => 'ID de message invalide']);

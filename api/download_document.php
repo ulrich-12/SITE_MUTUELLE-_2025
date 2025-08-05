@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Récupération de l'ID du document
-$document_id = intval($_POST['document_id'] ?? 0);
+$document_id = intval(isset($_POST['document_id']) ? $_POST['document_id'] : 0);
 
 if ($document_id <= 0) {
     http_response_code(400);

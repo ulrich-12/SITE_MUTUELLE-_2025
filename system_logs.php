@@ -11,12 +11,12 @@ $page_title = "Logs Système";
 include 'includes/header.php';
 
 // Paramètres de pagination et filtrage
-$page = intval($_GET['page'] ?? 1);
-$limit = intval($_GET['limit'] ?? 50);
-$filter_action = $_GET['action'] ?? '';
-$filter_user = $_GET['user'] ?? '';
-$filter_date = $_GET['date'] ?? '';
-$log_source = $_GET['source'] ?? 'database'; // 'database' ou 'file'
+$page = intval(isset($_GET['page']) ? $_GET['page'] : 1);
+$limit = intval(isset($_GET['limit']) ? $_GET['limit'] : 50);
+$filter_action = isset($_GET['action']) ? $_GET['action'] : '';
+$filter_user = isset($_GET['user']) ? $_GET['user'] : '';
+$filter_date = isset($_GET['date']) ? $_GET['date'] : '';
+$log_source = isset($_GET['source']) ? $_GET['source'] : 'database'; // 'database' ou 'file'
 
 $offset = ($page - 1) * $limit;
 
@@ -304,18 +304,18 @@ try {
                                                 <div style="font-weight: 600; color: var(--text-dark);">
                                                     <?php
                                                     if ($log_source === 'database') {
-                                                        echo htmlspecialchars(($log['prenom'] ?? '') . ' ' . ($log['nom'] ?? ''));
+                                                        echo htmlspecialchars((isset($log['prenom']) ? $log['prenom'] : '') . ' ' . (isset($log['nom']) ? $log['nom'] : ''));
                                                     } else {
-                                                        echo htmlspecialchars($log['user_name'] ?? 'Inconnu');
+                                                        echo htmlspecialchars(isset($log['user_name']) ? $log['user_name'] : 'Inconnu');
                                                     }
                                                     ?>
                                                 </div>
                                                 <div style="font-size: 0.8rem; color: var(--text-light);">
                                                     <?php
                                                     if ($log_source === 'database') {
-                                                        echo htmlspecialchars($log['role'] ?? 'inconnu');
+                                                        echo htmlspecialchars(isset($log['role']) ? $log['role'] : 'inconnu');
                                                     } else {
-                                                        echo htmlspecialchars($log['user_role'] ?? 'inconnu');
+                                                        echo htmlspecialchars(isset($log['user_role']) ? $log['user_role'] : 'inconnu');
                                                     }
                                                     ?>
                                                 </div>
@@ -408,7 +408,7 @@ try {
                                         <div style="font-family: monospace; font-size: 0.9rem; color: var(--text-dark);">
                                             <?php
                                             $ip = $log_source === 'database' ? $log['ip_address'] : $log['ip'];
-                                            echo htmlspecialchars($ip ?? 'N/A');
+                                            echo htmlspecialchars(isset($ip) ? $ip : 'N/A');
                                             ?>
                                         </div>
                                         <?php if (!empty($ip) && $ip !== '::1' && $ip !== '127.0.0.1'): ?>

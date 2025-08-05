@@ -8,8 +8,8 @@ $user = checkAuth('use_messaging', 'etudiant');
 logAction($_SESSION['user_id'], 'access_messaging', 'Accès à la messagerie');
 
 // Récupération des paramètres
-$view = $_GET['view'] ?? 'inbox';
-$message_id = $_GET['id'] ?? null;
+$view = isset($_GET['view']) ? $_GET['view'] : 'inbox';
+$message_id = isset($_GET['id']) ? $_GET['id'] : null;
 
 // Récupération des données
 $user_id = $_SESSION['user_id'];

@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Récupération de l'ID d'inscription
-$inscription_id = intval($_GET['inscription_id'] ?? 0);
+$inscription_id = intval(isset($_GET['inscription_id']) ? $_GET['inscription_id'] : 0);
 
 if ($inscription_id <= 0) {
     echo json_encode(['success' => false, 'message' => 'ID d\'inscription invalide']);

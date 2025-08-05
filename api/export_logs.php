@@ -11,10 +11,10 @@ if (!isset($_SESSION['user_id']) || !hasPermission($_SESSION['user_id'], 'view_s
 
 try {
     // Récupérer les paramètres de filtrage
-    $filter_action = $_GET['action'] ?? '';
-    $filter_user = $_GET['user'] ?? '';
-    $filter_date = $_GET['date'] ?? '';
-    $log_source = $_GET['source'] ?? 'database';
+    $filter_action = isset($_GET['action']) ? $_GET['action'] : '';
+    $filter_user = isset($_GET['user']) ? $_GET['user'] : '';
+    $filter_date = isset($_GET['date']) ? $_GET['date'] : '';
+    $log_source = isset($_GET['source']) ? $_GET['source'] : 'database';
 
     $logs = [];
 
@@ -127,28 +127,28 @@ try {
     foreach ($logs as $log) {
         if ($log_source === 'database') {
             $row = [
-                $log['id'] ?? '',
-                $log['created_at'] ?? '',
-                ($log['prenom'] ?? '') . ' ' . ($log['nom'] ?? ''),
-                $log['email'] ?? '',
-                $log['role'] ?? '',
-                $log['action'] ?? '',
-                $log['details'] ?? '',
-                $log['ip_address'] ?? '',
-                extractBrowser($log['user_agent'] ?? ''),
+                isset($log['id']) ? $log['id'] : '',
+                isset($log['created_at']) ? $log['created_at'] : '',
+                (isset($log['prenom']) ? $log['prenom'] : '') . ' ' . (isset($log['nom']) ? $log['nom'] : ''),
+                isset($log['email']) ? $log['email'] : '',
+                isset($log['role']) ? $log['role'] : '',
+                isset($log['action']) ? $log['action'] : '',
+                isset($log['details']) ? $log['details'] : '',
+                isset($log['ip_address']) ? $log['ip_address'] : '',
+                extractBrowser(isset($log['user_agent']) ? $log['user_agent'] : ''),
                 'Base de données'
             ];
         } else {
             $row = [
                 '',
-                $log['timestamp'] ?? '',
-                $log['user_name'] ?? '',
+                isset($log['timestamp']) ? $log['timestamp'] : '',
+                isset($log['user_name']) ? $log['user_name'] : '',
                 '',
-                $log['user_role'] ?? '',
-                $log['action'] ?? '',
-                $log['details'] ?? '',
-                $log['ip'] ?? '',
-                extractBrowser($log['user_agent'] ?? ''),
+                isset($log['user_role']) ? $log['user_role'] : '',
+                isset($log['action']) ? $log['action'] : '',
+                isset($log['details']) ? $log['details'] : '',
+                isset($log['ip']) ? $log['ip'] : '',
+                extractBrowser(isset($log['user_agent']) ? $log['user_agent'] : ''),
                 'Fichier log'
             ];
         }

@@ -9,15 +9,15 @@ logAction($_SESSION['user_id'], 'access_bank', 'Accès à la banque d\'épreuves
 
 // Récupération des filtres
 $filters = [
-    'search' => trim($_GET['search'] ?? ''),
-    'filiere' => $_GET['filiere'] ?? '',
-    'niveau' => $_GET['niveau'] ?? '',
-    'matiere' => $_GET['matiere'] ?? '',
-    'type_document' => $_GET['type_document'] ?? ''
+    'search' => trim(isset($_GET['search']) ? $_GET['search'] : ''),
+    'filiere' => isset($_GET['filiere']) ? $_GET['filiere'] : '',
+    'niveau' => isset($_GET['niveau']) ? $_GET['niveau'] : '',
+    'matiere' => isset($_GET['matiere']) ? $_GET['matiere'] : '',
+    'type_document' => isset($_GET['type_document']) ? $_GET['type_document'] : ''
 ];
 
 // Pagination
-$page = max(1, intval($_GET['page'] ?? 1));
+$page = max(1, intval(isset($_GET['page']) ? $_GET['page'] : 1));
 $limit = 12;
 
 // Récupération des données

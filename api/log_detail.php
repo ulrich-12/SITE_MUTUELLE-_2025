@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id']) || !hasPermission($_SESSION['user_id'], 'view_s
     exit;
 }
 
-$log_id = intval($_GET['id'] ?? 0);
+$log_id = intval(isset($_GET['id']) ? $_GET['id'] : 0);
 
 if ($log_id <= 0) {
     http_response_code(400);

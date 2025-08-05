@@ -8,7 +8,7 @@ $user = checkAuth('view_results', 'etudiant');
 logAction($_SESSION['user_id'], 'access_results', 'Accès aux résultats');
 
 // Récupération du semestre sélectionné
-$selected_semestre = $_GET['semestre'] ?? null;
+$selected_semestre = isset($_GET['semestre']) ? $_GET['semestre'] : null;
 
 // Récupération des données de l'utilisateur
 $user_id = $_SESSION['user_id'];

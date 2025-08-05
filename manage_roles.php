@@ -12,11 +12,11 @@ $messageType = '';
 
 // Traitement des actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
+    $action = isset($_POST['action']) ? $_POST['action'] : '';
     
     if ($action === 'update_role') {
-        $targetUserId = intval($_POST['user_id'] ?? 0);
-        $newRole = $_POST['new_role'] ?? '';
+        $targetUserId = intval(isset($_POST['user_id']) ? $_POST['user_id'] : 0);
+        $newRole = isset($_POST['new_role']) ? $_POST['new_role'] : '';
         
         try {
             updateUserRole($targetUserId, $newRole, $_SESSION['user_id']);

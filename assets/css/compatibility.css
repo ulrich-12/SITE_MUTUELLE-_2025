@@ -1,0 +1,292 @@
+/**
+ * Fichier de compatibilité CSS pour assurer le support
+ * des navigateurs modernes et anciens
+ * Compatible avec: Chrome 60+, Firefox 55+, Safari 12+, Edge 79+, IE 11
+ */
+
+/* Reset CSS universel pour la compatibilité */
+* {
+    box-sizing: border-box;
+}
+
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Fallbacks pour les variables CSS (IE 11) */
+:root {
+    --primary-color: #2e7d32;
+    --secondary-color: #ffffff;
+    --accent-color: #81c784;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --border-color: #e0e0e0;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Fallbacks pour les navigateurs ne supportant pas les variables CSS */
+.no-custom-properties {
+    /* Redéfinir toutes les propriétés avec des valeurs fixes */
+}
+
+.no-custom-properties .header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.no-custom-properties .nav-link {
+    color: #333333;
+    transition: all 0.3s ease;
+}
+
+.no-custom-properties .nav-link:hover {
+    color: #2e7d32;
+}
+
+.no-custom-properties .btn-primary {
+    background-color: #2e7d32;
+    color: #ffffff;
+}
+
+/* Fallbacks pour Flexbox (IE 10-11) */
+.no-flexbox .nav-menu {
+    display: table;
+    width: 100%;
+}
+
+.no-flexbox .nav-item {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.no-flexbox .hero-container {
+    display: table;
+    width: 100%;
+}
+
+.no-flexbox .hero-content,
+.no-flexbox .hero-image {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+}
+
+/* Fallbacks pour CSS Grid */
+.no-grid .services-grid {
+    display: block;
+}
+
+.no-grid .service-card {
+    display: inline-block;
+    width: 30%;
+    margin: 1.5%;
+    vertical-align: top;
+}
+
+@media (max-width: 768px) {
+    .no-grid .service-card {
+        width: 100%;
+        margin: 1rem 0;
+    }
+}
+
+/* Préfixes vendeur pour la compatibilité */
+.transition {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.transform {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.border-radius {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Flexbox avec préfixes pour IE 10-11 */
+.flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.flex-wrap {
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.flex-direction-column {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.justify-content-center {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.align-items-center {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+/* Corrections spécifiques pour IE 11 */
+.ie11-fix {
+    /* Fix pour les images flexibles dans IE 11 */
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+/* Fallback pour object-fit (IE 11) */
+.object-fit-cover {
+    object-fit: cover;
+}
+
+.no-object-fit .object-fit-cover {
+    /* Fallback pour IE 11 */
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Animations avec préfixes */
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@-moz-keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    -webkit-animation: fadeIn 0.5s ease-in;
+    -moz-animation: fadeIn 0.5s ease-in;
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Media queries pour la compatibilité */
+@media screen and (max-width: 768px) {
+    .mobile-hidden {
+        display: none !important;
+    }
+    
+    .mobile-full-width {
+        width: 100% !important;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .desktop-hidden {
+        display: none !important;
+    }
+}
+
+/* Corrections pour Safari */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .safari-fix {
+        /* Corrections spécifiques pour Safari */
+    }
+}
+
+/* Corrections pour Firefox */
+@-moz-document url-prefix() {
+    .firefox-fix {
+        /* Corrections spécifiques pour Firefox */
+    }
+}
+
+/* Utilitaires de compatibilité */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Styles pour les navigateurs sans JavaScript */
+.no-js .js-only {
+    display: none !important;
+}
+
+.no-js .no-js-fallback {
+    display: block !important;
+}
+
+/* Print styles pour la compatibilité */
+@media print {
+    * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* Corrections pour les anciens navigateurs mobiles */
+@media screen and (max-device-width: 480px) {
+    .old-mobile-fix {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+}

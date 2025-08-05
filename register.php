@@ -18,14 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Récupération et validation des données
-    $nom = trim($_POST['nom'] ?? '');
-    $prenom = trim($_POST['prenom'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $numero_etudiant = trim($_POST['numero_etudiant'] ?? '');
-    $filiere = trim($_POST['filiere'] ?? '');
-    $niveau = trim($_POST['niveau'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $confirm_password = $_POST['confirm_password'] ?? '';
+    $nom = trim(isset($_POST['nom']) ? $_POST['nom'] : '');
+    $prenom = trim(isset($_POST['prenom']) ? $_POST['prenom'] : '');
+    $email = trim(isset($_POST['email']) ? $_POST['email'] : '');
+    $numero_etudiant = trim(isset($_POST['numero_etudiant']) ? $_POST['numero_etudiant'] : '');
+    $filiere = trim(isset($_POST['filiere']) ? $_POST['filiere'] : '');
+    $niveau = trim(isset($_POST['niveau']) ? $_POST['niveau'] : '');
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
     $terms = isset($_POST['terms']);
 
     // Validation des champs
@@ -155,12 +155,12 @@ include 'includes/header.php';
                             id="nom"
                             name="nom"
                             class="form-input <?php echo isset($errors['nom']) ? 'error' : ''; ?>"
-                            value="<?php echo htmlspecialchars($nom ?? ''); ?>"
+                            value="<?php echo htmlspecialchars(isset($nom) ? $nom : ''); ?>"
                             required
                             placeholder="Votre nom de famille"
                         >
                         <div class="form-error <?php echo isset($errors['nom']) ? 'show' : ''; ?>">
-                            <?php echo $errors['nom'] ?? ''; ?>
+                            <?php echo isset($errors['nom']) ? $errors['nom'] : ''; ?>
                         </div>
                     </div>
 
@@ -173,12 +173,12 @@ include 'includes/header.php';
                             id="prenom"
                             name="prenom"
                             class="form-input <?php echo isset($errors['prenom']) ? 'error' : ''; ?>"
-                            value="<?php echo htmlspecialchars($prenom ?? ''); ?>"
+                            value="<?php echo htmlspecialchars(isset($prenom) ? $prenom : ''); ?>"
                             required
                             placeholder="Votre prénom"
                         >
                         <div class="form-error <?php echo isset($errors['prenom']) ? 'show' : ''; ?>">
-                            <?php echo $errors['prenom'] ?? ''; ?>
+                            <?php echo isset($errors['prenom']) ? $errors['prenom'] : ''; ?>
                         </div>
                     </div>
 
@@ -191,12 +191,12 @@ include 'includes/header.php';
                             id="email"
                             name="email"
                             class="form-input <?php echo isset($errors['email']) ? 'error' : ''; ?>"
-                            value="<?php echo htmlspecialchars($email ?? ''); ?>"
+                            value="<?php echo htmlspecialchars(isset($email) ? $email : ''); ?>"
                             required
                             placeholder="votre.email@exemple.com"
                         >
                         <div class="form-error <?php echo isset($errors['email']) ? 'show' : ''; ?>">
-                            <?php echo $errors['email'] ?? ''; ?>
+                            <?php echo isset($errors['email']) ? $errors['email'] : ''; ?>
                         </div>
                     </div>
 
@@ -210,13 +210,13 @@ include 'includes/header.php';
                             id="numero_etudiant"
                             name="numero_etudiant"
                             class="form-input <?php echo isset($errors['numero_etudiant']) ? 'error' : ''; ?>"
-                            value="<?php echo htmlspecialchars($numero_etudiant ?? ''); ?>"
+                            value="<?php echo htmlspecialchars(isset($numero_etudiant) ? $numero_etudiant : ''); ?>"
                             required
                             placeholder="Ex: 20240001234"
                             pattern="[0-9]{8,12}"
                         >
                         <div class="form-error <?php echo isset($errors['numero_etudiant']) ? 'show' : ''; ?>">
-                            <?php echo $errors['numero_etudiant'] ?? ''; ?>
+                            <?php echo isset($errors['numero_etudiant']) ? $errors['numero_etudiant'] : ''; ?>
                         </div>
                     </div>
 
@@ -231,18 +231,18 @@ include 'includes/header.php';
                             required
                         >
                             <option value="">Choisissez votre filière</option>
-                            <option value="informatique" <?php echo ($filiere ?? '') === 'informatique' ? 'selected' : ''; ?>>Informatique</option>
-                            <option value="gestion" <?php echo ($filiere ?? '') === 'gestion' ? 'selected' : ''; ?>>Gestion</option>
-                            <option value="economie" <?php echo ($filiere ?? '') === 'economie' ? 'selected' : ''; ?>>Économie</option>
-                            <option value="droit" <?php echo ($filiere ?? '') === 'droit' ? 'selected' : ''; ?>>Droit</option>
-                            <option value="medecine" <?php echo ($filiere ?? '') === 'medecine' ? 'selected' : ''; ?>>Médecine</option>
-                            <option value="ingenierie" <?php echo ($filiere ?? '') === 'ingenierie' ? 'selected' : ''; ?>>Ingénierie</option>
-                            <option value="lettres" <?php echo ($filiere ?? '') === 'lettres' ? 'selected' : ''; ?>>Lettres et Sciences Humaines</option>
-                            <option value="sciences" <?php echo ($filiere ?? '') === 'sciences' ? 'selected' : ''; ?>>Sciences</option>
-                            <option value="autre" <?php echo ($filiere ?? '') === 'autre' ? 'selected' : ''; ?>>Autre</option>
+                            <option value="informatique" <?php echo (isset($filiere) && $filiere === 'informatique') ? 'selected' : ''; ?>>Informatique</option>
+                            <option value="gestion" <?php echo (isset($filiere) && $filiere === 'gestion') ? 'selected' : ''; ?>>Gestion</option>
+                            <option value="economie" <?php echo (isset($filiere) && $filiere === 'economie') ? 'selected' : ''; ?>>Économie</option>
+                            <option value="droit" <?php echo (isset($filiere) && $filiere === 'droit') ? 'selected' : ''; ?>>Droit</option>
+                            <option value="medecine" <?php echo (isset($filiere) && $filiere === 'medecine') ? 'selected' : ''; ?>>Médecine</option>
+                            <option value="ingenierie" <?php echo (isset($filiere) && $filiere === 'ingenierie') ? 'selected' : ''; ?>>Ingénierie</option>
+                            <option value="lettres" <?php echo (isset($filiere) && $filiere === 'lettres') ? 'selected' : ''; ?>>Lettres et Sciences Humaines</option>
+                            <option value="sciences" <?php echo (isset($filiere) && $filiere === 'sciences') ? 'selected' : ''; ?>>Sciences</option>
+                            <option value="autre" <?php echo (isset($filiere) && $filiere === 'autre') ? 'selected' : ''; ?>>Autre</option>
                         </select>
                         <div class="form-error <?php echo isset($errors['filiere']) ? 'show' : ''; ?>">
-                            <?php echo $errors['filiere'] ?? ''; ?>
+                            <?php echo isset($errors['filiere']) ? $errors['filiere'] : ''; ?>
                         </div>
                     </div>
 
@@ -257,15 +257,15 @@ include 'includes/header.php';
                             required
                         >
                             <option value="">Choisissez votre niveau</option>
-                            <option value="L1" <?php echo ($niveau ?? '') === 'L1' ? 'selected' : ''; ?>>Licence 1ère année (L1)</option>
-                            <option value="L2" <?php echo ($niveau ?? '') === 'L2' ? 'selected' : ''; ?>>Licence 2ème année (L2)</option>
-                            <option value="L3" <?php echo ($niveau ?? '') === 'L3' ? 'selected' : ''; ?>>Licence 3ème année (L3)</option>
-                            <option value="M1" <?php echo ($niveau ?? '') === 'M1' ? 'selected' : ''; ?>>Master 1ère année (M1)</option>
-                            <option value="M2" <?php echo ($niveau ?? '') === 'M2' ? 'selected' : ''; ?>>Master 2ème année (M2)</option>
-                            <option value="Doctorat" <?php echo ($niveau ?? '') === 'Doctorat' ? 'selected' : ''; ?>>Doctorat</option>
+                            <option value="L1" <?php echo (isset($niveau) && $niveau === 'L1') ? 'selected' : ''; ?>>Licence 1ère année (L1)</option>
+                            <option value="L2" <?php echo (isset($niveau) && $niveau === 'L2') ? 'selected' : ''; ?>>Licence 2ème année (L2)</option>
+                            <option value="L3" <?php echo (isset($niveau) && $niveau === 'L3') ? 'selected' : ''; ?>>Licence 3ème année (L3)</option>
+                            <option value="M1" <?php echo (isset($niveau) && $niveau === 'M1') ? 'selected' : ''; ?>>Master 1ère année (M1)</option>
+                            <option value="M2" <?php echo (isset($niveau) && $niveau === 'M2') ? 'selected' : ''; ?>>Master 2ème année (M2)</option>
+                            <option value="Doctorat" <?php echo (isset($niveau) && $niveau === 'Doctorat') ? 'selected' : ''; ?>>Doctorat</option>
                         </select>
                         <div class="form-error <?php echo isset($errors['niveau']) ? 'show' : ''; ?>">
-                            <?php echo $errors['niveau'] ?? ''; ?>
+                            <?php echo isset($errors['niveau']) ? $errors['niveau'] : ''; ?>
                         </div>
                     </div>
 
@@ -284,7 +284,7 @@ include 'includes/header.php';
                             minlength="8"
                         >
                         <div class="form-error <?php echo isset($errors['password']) ? 'show' : ''; ?>">
-                            <?php echo $errors['password'] ?? ''; ?>
+                            <?php echo isset($errors['password']) ? $errors['password'] : ''; ?>
                         </div>
                         <small style="color: var(--text-light); font-size: 0.8rem;">
                             Le mot de passe doit contenir au moins 8 caractères avec une minuscule, une majuscule et un chiffre.
@@ -304,7 +304,7 @@ include 'includes/header.php';
                             placeholder="Répétez votre mot de passe"
                         >
                         <div class="form-error <?php echo isset($errors['confirm_password']) ? 'show' : ''; ?>">
-                            <?php echo $errors['confirm_password'] ?? ''; ?>
+                            <?php echo isset($errors['confirm_password']) ? $errors['confirm_password'] : ''; ?>
                         </div>
                     </div>
 
@@ -323,7 +323,7 @@ include 'includes/header.php';
                         </label>
                     </div>
                     <div class="form-error <?php echo isset($errors['terms']) ? 'show' : ''; ?>">
-                        <?php echo $errors['terms'] ?? ''; ?>
+                        <?php echo isset($errors['terms']) ? $errors['terms'] : ''; ?>
                     </div>
 
                     <!-- Bouton de soumission -->

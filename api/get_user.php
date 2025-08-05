@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Récupération de l'ID utilisateur
-$user_id = intval($_GET['id'] ?? 0);
+$user_id = intval(isset($_GET['id']) ? $_GET['id'] : 0);
 
 if ($user_id <= 0) {
     echo json_encode(['success' => false, 'message' => 'ID utilisateur invalide']);

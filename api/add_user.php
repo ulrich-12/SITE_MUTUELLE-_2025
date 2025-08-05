@@ -17,11 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try {
     // Récupération et validation des données
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $role = trim($_POST['role'] ?? 'etudiant');
-    $filiere = trim($_POST['filiere'] ?? '');
-    $niveau = trim($_POST['niveau'] ?? '');
+    $name = trim(isset($_POST['name']) ? $_POST['name'] : '');
+    $email = trim(isset($_POST['email']) ? $_POST['email'] : '');
+    $role = trim(isset($_POST['role']) ? $_POST['role'] : 'etudiant');
+    $filiere = trim(isset($_POST['filiere']) ? $_POST['filiere'] : '');
+    $niveau = trim(isset($_POST['niveau']) ? $_POST['niveau'] : '');
 
     // Validation
     if (empty($name) || empty($email)) {

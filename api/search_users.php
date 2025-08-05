@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Récupération de la requête de recherche
-$query = trim($_GET['q'] ?? '');
+$query = trim(isset($_GET['q']) ? $_GET['q'] : '');
 
 if (strlen($query) < 2) {
     echo json_encode(['success' => false, 'message' => 'Requête trop courte']);

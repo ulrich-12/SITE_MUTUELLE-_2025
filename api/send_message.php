@@ -18,10 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try {
     $sender_id = $_SESSION['user_id'];
-    $subject = trim($_POST['subject'] ?? '');
-    $message = trim($_POST['message'] ?? '');
+    $subject = trim(isset($_POST['subject']) ? $_POST['subject'] : '');
+    $message = trim(isset($_POST['message']) ? $_POST['message'] : '');
     $is_public = isset($_POST['is_public']) && $_POST['is_public'] === '1';
-    $recipient_id = $is_public ? null : intval($_POST['recipient_id'] ?? 0);
+    $recipient_id = $is_public ? null : intval(isset($_POST['recipient_id']) ? $_POST['recipient_id'] : 0);
 
     // Validation des données
     if (empty($subject)) {

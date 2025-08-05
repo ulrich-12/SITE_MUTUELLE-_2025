@@ -71,11 +71,11 @@ function displayAccessError() {
                 $message = 'Votre compte a été désactivé. Contactez l\'administration.';
                 break;
             case 'access_denied':
-                $permission = $_GET['permission'] ?? 'inconnue';
+                $permission = isset($_GET['permission']) ? $_GET['permission'] : 'inconnue';
                 $message = "Accès refusé. Permission requise : $permission";
                 break;
             case 'insufficient_role':
-                $required = $_GET['required'] ?? 'inconnu';
+                $required = isset($_GET['required']) ? $_GET['required'] : 'inconnu';
                 $message = "Rôle insuffisant. Rôle requis : $required";
                 break;
             default:
@@ -101,7 +101,7 @@ function getRoleBadge($role) {
         'super_admin' => ['name' => 'Super Admin', 'color' => '#f44336']
     ];
     
-    $config = $roleConfig[$role] ?? $roleConfig['etudiant'];
+    $config = isset($roleConfig[$role]) ? $roleConfig[$role] : $roleConfig['etudiant'];
     
     return "<span style='background: {$config['color']}; color: white; padding: 0.25rem 0.5rem; border-radius: 10px; font-size: 0.8rem; font-weight: bold;'>{$config['name']}</span>";
 }
@@ -124,7 +124,7 @@ function canAccess($feature) {
         'moderate_content' => 'moderate_messages'
     ];
     
-    $permission = $featurePermissions[$feature] ?? null;
+    $permission = isset($featurePermissions[$feature]) ? $featurePermissions[$feature] : null;
     
     if ($permission) {
         return hasPermission($_SESSION['user_id'], $permission);
@@ -191,8 +191,8 @@ function logAction($userId, $action, $details = null) {
             'user_role' => $userRole,
             'action' => $action,
             'details' => $details,
-            'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
-            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown'
+            'ip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown',
+            'user_agent' => isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'unknown'
         ];
         
         // Pour l'instant, on log dans un fichier. Plus tard on pourra créer une table dédiée
@@ -230,7 +230,7 @@ function getUserPermissions($userId) {
         return [];
     }
     
-    $role = $user['role'] ?? 'etudiant';
+    $role = isset($user['role']) ? $user['role'] : 'etudiant';
     
     $allPermissions = [
         'etudiant' => [

@@ -1,7 +1,17 @@
 <?php
 /**
  * Configuration de la base de données pour la Mutuelle UDM
+ * Compatible PHP 5.4+ à 8.3+
  */
+
+// Détection automatique de la version PHP et chargement du bon fichier de compatibilité
+if (version_compare(PHP_VERSION, '7.4.0', '>=')) {
+    // PHP moderne (7.4+)
+    require_once __DIR__ . '/compatibility.php';
+} else {
+    // PHP legacy (5.4+)
+    require_once __DIR__ . '/legacy_compatibility.php';
+}
 
 // Configuration de la base de données
 define('DB_HOST', 'localhost');
@@ -754,7 +764,7 @@ function hasRole($userId, $requiredRole) {
         return false;
     }
 
-    $userRole = $user['role'] ?? 'etudiant';
+    $userRole = isset($user['role']) ? $user['role'] : 'etudiant';
 
     // Hiérarchie des rôles
     $roleHierarchy = [
@@ -764,8 +774,8 @@ function hasRole($userId, $requiredRole) {
         'super_admin' => 4
     ];
 
-    $userLevel = $roleHierarchy[$userRole] ?? 1;
-    $requiredLevel = $roleHierarchy[$requiredRole] ?? 1;
+    $userLevel = isset($roleHierarchy[$userRole]) ? $roleHierarchy[$userRole] : 1;
+    $requiredLevel = isset($roleHierarchy[$requiredRole]) ? $roleHierarchy[$requiredRole] : 1;
 
     return $userLevel >= $requiredLevel;
 }
@@ -779,7 +789,7 @@ function hasPermission($userId, $permission) {
         return false;
     }
 
-    $userRole = $user['role'] ?? 'etudiant';
+    $userRole = isset($user['role']) ? $user['role'] : 'etudiant';
 
     // Définition des permissions par rôle
     $permissions = [
@@ -839,7 +849,7 @@ function hasPermission($userId, $permission) {
         ]
     ];
 
-    $userPermissions = $permissions[$userRole] ?? [];
+    $userPermissions = isset($permissions[$userRole]) ? $permissions[$userRole] : [];
     return in_array($permission, $userPermissions);
 }
 
@@ -848,7 +858,7 @@ function hasPermission($userId, $permission) {
  */
 function getUserRole($userId) {
     $user = getUserById($userId);
-    return $user ? ($user['role'] ?? 'etudiant') : null;
+    return $user ? (isset($user['role']) ? $user['role'] : 'etudiant') : null;
 }
 
 /**
@@ -915,7 +925,7 @@ function checkPageAccess($userId, $page) {
         'system_logs.php' => 'view_system_logs'
     ];
 
-    $requiredPermission = $pagePermissions[$page] ?? null;
+    $requiredPermission = isset($pagePermissions[$page]) ? $pagePermissions[$page] : null;
 
     if ($requiredPermission) {
         return hasPermission($userId, $requiredPermission);

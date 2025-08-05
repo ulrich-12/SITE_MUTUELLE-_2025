@@ -4,8 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($page_title) ? $page_title . ' - ' : ''; ?>Mutuelle des Étudiants UDM</title>
+
+    <!-- Fichiers de compatibilité -->
+    <link rel="stylesheet" href="assets/css/compatibility.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Font Awesome avec fallback -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" onerror="this.onerror=null;this.href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';">
+
+    <!-- Meta tags pour la compatibilité -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Préchargement des polices critiques -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+    <!-- Script de détection des fonctionnalités -->
+    <script>
+        // Détection basique des fonctionnalités avant le chargement
+        (function() {
+            var html = document.documentElement;
+
+            // Ajouter la classe no-js par défaut
+            html.className = html.className.replace(/\bno-js\b/, 'js');
+
+            // Détection de base
+            if (!window.addEventListener) html.className += ' no-addeventlistener';
+            if (!document.querySelector) html.className += ' no-queryselector';
+            if (!window.localStorage) html.className += ' no-localstorage';
+            if (!window.sessionStorage) html.className += ' no-sessionstorage';
+
+            // Détection CSS
+            var testEl = document.createElement('div');
+            testEl.style.display = 'flex';
+            if (testEl.style.display !== 'flex') html.className += ' no-flexbox';
+
+            testEl.style.display = 'grid';
+            if (testEl.style.display !== 'grid') html.className += ' no-grid';
+
+            // Test des variables CSS
+            if (!(window.CSS && CSS.supports && CSS.supports('color', 'var(--test)'))) {
+                html.className += ' no-custom-properties';
+            }
+        })();
+    </script>
 </head>
 <body>
     <header class="header">
@@ -115,7 +157,7 @@
                                     ?>
                                 </div>
                                 <span class="nav-text user-info">
-                                    <span class="user-name"><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Utilisateur'); ?></span>
+                                    <span class="user-name"><?php echo htmlspecialchars(isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Utilisateur'); ?></span>
                                     <?php
                                     if (function_exists('getRoleBadge') && isset($_SESSION['user_role'])) {
                                         echo '<span class="user-role">' . getRoleBadge($_SESSION['user_role']) . '</span>';
@@ -129,8 +171,8 @@
                                         <?php echo $initials ?: 'U'; ?>
                                     </div>
                                     <div class="user-details">
-                                        <div class="user-name"><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Utilisateur'); ?></div>
-                                        <div class="user-email"><?php echo htmlspecialchars($_SESSION['user_email'] ?? ''); ?></div>
+                                        <div class="user-name"><?php echo htmlspecialchars(isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Utilisateur'); ?></div>
+                                        <div class="user-email"><?php echo htmlspecialchars(isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ''); ?></div>
                                         <?php
                                         if (function_exists('getRoleBadge') && isset($_SESSION['user_role'])) {
                                             echo '<div class="user-role-badge">' . getRoleBadge($_SESSION['user_role']) . '</div>';
@@ -227,3 +269,7 @@
     window.addEventListener('load', handleResponsiveNav);
     window.addEventListener('resize', handleResponsiveNav);
     </script>
+
+    <!-- Scripts de compatibilité -->
+    <script src="assets/js/compatibility.js"></script>
+    <script src="assets/js/main.js"></script>

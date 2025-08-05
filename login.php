@@ -49,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Récupération des données
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
+    $email = trim(isset($_POST['email']) ? $_POST['email'] : '');
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
     $remember = isset($_POST['remember']);
 
     // Validation des champs
@@ -154,13 +154,13 @@ include 'includes/header.php';
                             id="email"
                             name="email"
                             class="form-input <?php echo isset($errors['email']) ? 'error' : ''; ?>"
-                            value="<?php echo htmlspecialchars($email ?? ''); ?>"
+                            value="<?php echo htmlspecialchars(isset($email) ? $email : ''); ?>"
                             required
                             placeholder="votre.email@exemple.com"
                             autocomplete="email"
                         >
                         <div class="form-error <?php echo isset($errors['email']) ? 'show' : ''; ?>">
-                            <?php echo $errors['email'] ?? ''; ?>
+                            <?php echo isset($errors['email']) ? $errors['email'] : ''; ?>
                         </div>
                     </div>
 
@@ -178,7 +178,7 @@ include 'includes/header.php';
                             autocomplete="current-password"
                         >
                         <div class="form-error <?php echo isset($errors['password']) ? 'show' : ''; ?>">
-                            <?php echo $errors['password'] ?? ''; ?>
+                            <?php echo isset($errors['password']) ? $errors['password'] : ''; ?>
                         </div>
                     </div>
 
